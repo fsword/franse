@@ -1,0 +1,7 @@
+<h2><%=link_to controller.controller_name.titleize, {:filter => 'none'} %></h2>
+
+<%= render "index_navigation" %>
+
+<% if collection.any? %>
+  <%= render "collection_table" %>
+<% end %>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Franse</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<a href="/words?filter=foreign">拼写练习</a> | 
+<a href="/words?filter=native">翻译练习</a>
+<%= yield %>
+
+</body>
+</html>
