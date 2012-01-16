@@ -2,7 +2,10 @@
   <thead>
     <tr>
     <% collection.first.attributes.each_pair do |field, value| %>
-      <% next if [:id, :created_at, :updated_at].include?(field.to_sym) %>
+    <% next if [:id, :created_at, :updated_at, 
+                :remember_1_at, :remember_2_at, 
+                :remember_3_at, :remember_4_at,
+                :remember_5_at].include?(field.to_sym) %>
       <th><%= field.titleize %></th>
     <% end %>
     </tr>
@@ -13,7 +16,10 @@
     <% r.class.columns.each do |column|
          field, value = column.name.to_sym, r.attributes[column.name]
     %>
-      <% next if [:id, :created_at, :updated_at].include?(field) %>
+    <% next if [:id, :created_at, :updated_at, 
+                :remember_1_at, :remember_2_at, 
+                :remember_3_at, :remember_4_at,
+                :remember_5_at].include?(field) %>
       <td>
         <% if column.type == :boolean %>
           <%= form_for r do |f| %>

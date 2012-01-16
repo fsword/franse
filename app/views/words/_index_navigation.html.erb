@@ -1,1 +1,6 @@
-<p><%= link_to "New", new_resource_url %></p>
+<p>
+  <%= link_to "New", new_resource_url %>
+  <%=raw((1..5).collect do |i|
+    link_to "归档为第#{i}次循环", archieve_words_path(:cycle_num => i.to_s), :method => 'POST'
+   end.join " ") %>
+</p>

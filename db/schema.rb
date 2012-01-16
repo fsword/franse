@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120115123351) do
+ActiveRecord::Schema.define(:version => 20120116132824) do
 
   create_table "words", :force => true do |t|
     t.string   "foreign_lang"
@@ -20,6 +20,11 @@ ActiveRecord::Schema.define(:version => 20120115123351) do
     t.boolean  "can_native"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "remember_1_at"
+    t.datetime "remember_2_at"
+    t.datetime "remember_3_at"
+    t.datetime "remember_4_at"
+    t.datetime "remember_5_at"
   end
 
 end

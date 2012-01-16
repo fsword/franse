@@ -18,7 +18,10 @@
   <% resource_class.columns.each do |column|
        field, value = column.name.to_sym, resource.attributes[column.name]
   %>
-    <% next if [:id, :created_at, :updated_at].include?(field) %>
+    <% next if [:id, :created_at, :updated_at, 
+                :remember_1_at, :remember_2_at, 
+                :remember_3_at, :remember_4_at,
+                :remember_5_at].include?(field) %>
     <tr>
       <td><%= field.to_s.titleize %></td>
       <td>

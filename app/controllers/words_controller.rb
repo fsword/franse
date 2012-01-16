@@ -12,6 +12,13 @@ class WordsController < InheritedResources::Base
     end
   end
 
+  def archieve
+    Word.find_each do |word| 
+      word.archieve params[:cycle_num]
+    end
+    redirect_to words_url
+  end
+
   protected
     def collection
       if params[:filter]=='none'
