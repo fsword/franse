@@ -1,46 +1,26 @@
 <table class="<%= resource_class.to_s.downcase.pluralize %> collection">
   <thead>
     <tr>
-      <% %w{foreign native}.each do |field|
-          if (not eval("check_"+field)) or nocheck
-      %>
-      <th><%= (field+"_lang").titleize %></th>
-      <%
-          end 
-        end %>
-      <% %w{foreign native}.each do |field|
-          if eval("check_"+field) or nocheck
-      %>
-      <th><%= ("can_"+field).titleize %></th>
-      <%
-          end
-        end %>
+    <% %w{foreign_lang native_lang can_foreign can_native}.each do |field| %>
+      <th><%= field.titleize %></th>
+    <% end %>
     </tr>
   </thead>
   <tbody>
   <% collection.each do |r| %>
     <tr>
-      <% %w{foreign native}.each do |field|
-          if (not eval("check_"+field)) or nocheck
-      %>
+      <% %w{foreign native}.each do |field| %>
       <td>
-        <%= r.attributes[field+'_lang'] %>
+        <%= ((not eval("check_"+field)) or nocheck) ? r.attributes[field+'_lang'] : '' %>
       </td>
-      <%
-          end 
-        end %>
-      <% %w{foreign native}.each do |field|
-          if eval("check_"+field) or nocheck
-            value = r.attributes['can_'+field]
-      %>
+      <% end %>
+      <% %w{foreign native}.each do |field| %>
       <td>
         <%= form_for r do |f| %>
           <%= f.check_box 'can_'+field, :onchange => 'this.form.submit();' %>
         <% end %>
       </td>
-      <%
-          end
-        end %>
+      <% end %>
       <td><%= link_to "Edit", edit_resource_url(r) %></td>
       <td><%= link_to "Destroy", resource_url(r), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
