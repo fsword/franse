@@ -1,35 +1,46 @@
-<table class="<%= collection.first.class.to_s.downcase.pluralize %> collection">
+<table class="<%= resource_class.to_s.downcase.pluralize %> collection">
   <thead>
     <tr>
-    <% collection.first.attributes.each_pair do |field, value| %>
-    <% next if [:id, :created_at, :updated_at, 
-                :remember_1_at, :remember_2_at, 
-                :remember_3_at, :remember_4_at,
-                :remember_5_at].include?(field.to_sym) %>
-      <th><%= field.titleize %></th>
-    <% end %>
+      <% %w{foreign native}.each do |field|
+          if (not eval("check_"+field)) or nocheck
+      %>
+      <th><%= (field+"_lang").titleize %></th>
+      <%
+          end 
+        end %>
+      <% %w{foreign native}.each do |field|
+          if eval("check_"+field) or nocheck
+      %>
+      <th><%= ("can_"+field).titleize %></th>
+      <%
+          end
+        end %>
     </tr>
   </thead>
   <tbody>
   <% collection.each do |r| %>
     <tr>
-    <% r.class.columns.each do |column|
-         field, value = column.name.to_sym, r.attributes[column.name]
-    %>
-    <% next if [:id, :created_at, :updated_at, 
-                :remember_1_at, :remember_2_at, 
-                :remember_3_at, :remember_4_at,
-                :remember_5_at].include?(field) %>
+      <% %w{foreign native}.each do |field|
+          if (not eval("check_"+field)) or nocheck
+      %>
       <td>
-        <% if column.type == :boolean %>
-          <%= form_for r do |f| %>
-            <%= f.check_box field, :onchange => 'this.form.submit();' %>
-          <% end %>
-        <% else %>
-          <%= value %>
+        <%= r.attributes[field+'_lang'] %>
+      </td>
+      <%
+          end 
+        end %>
+      <% %w{foreign native}.each do |field|
+          if eval("check_"+field) or nocheck
+            value = r.attributes['can_'+field]
+      %>
+      <td>
+        <%= form_for r do |f| %>
+          <%= f.check_box 'can_'+field, :onchange => 'this.form.submit();' %>
         <% end %>
       </td>
-    <% end %>
+      <%
+          end
+        end %>
       <td><%= link_to "Edit", edit_resource_url(r) %></td>
       <td><%= link_to "Destroy", resource_url(r), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
