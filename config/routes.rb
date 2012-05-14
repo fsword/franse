@@ -3,6 +3,10 @@ Franse::Application.routes.draw do
     collection do
       post :archieve
     end
+
+    member do
+      put :testing
+    end
   end
 
   # The priority is based upon order of creation:

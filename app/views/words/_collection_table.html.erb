@@ -1,3 +1,4 @@
+<span style="color:red"><%=flash[:notice] %></span>
 <table class="<%= resource_class.to_s.downcase.pluralize %> collection">
   <thead>
     <tr>
@@ -11,7 +12,13 @@
     <tr>
       <% %w{foreign native}.each do |field| %>
       <td>
-        <%= ((not eval("check_"+field)) or nocheck) ? r.attributes[field+'_lang'] : '' %>
+      <% if ((not eval("check_"+field)) or nocheck) %>
+        <%=r.attributes[field+'_lang'] %>
+      <% else %>
+        <%= form_for r, :url => testing_word_path(r) do |f| %>
+          <%= f.text_field "#{field}_lang", :value => '',:autocomplete => 'off' %>
+        <% end %>
+      <% end %>
       </td>
       <% end %>
       <% %w{foreign native}.each do |field| %>

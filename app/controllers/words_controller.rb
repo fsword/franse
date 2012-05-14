@@ -1,3 +1,4 @@
+# coding: utf-8
 class WordsController < InheritedResources::Base
 
   def create
@@ -10,6 +11,17 @@ class WordsController < InheritedResources::Base
     update! do |format|
       format.html { redirect_to words_url }
     end
+  end
+
+  def testing
+    word = Word.find params[:id]
+    key,value = params[:word].flatten
+    if word.send(key) == value
+      word.update_attribute("can_#{key.split('_')[0]}", true)
+    else
+      flash[:notice] = "填写错误"
+    end
+    redirect_to words_url
   end
 
   def archieve
