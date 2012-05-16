@@ -33,6 +33,7 @@ gem 'jquery-rails'
 gem "inherited_resources_views"
 gem "inherited_resources"
 gem 'therubyracer'
+gem "twitter-bootstrap-rails"
 
 group :development, :test do
   # Pretty printed test output

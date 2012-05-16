@@ -1,10 +1,11 @@
 <span style="color:red"><%=flash[:notice] %></span>
-<table class="<%= resource_class.to_s.downcase.pluralize %> collection">
+<table class="table table-striped">
   <thead>
     <tr>
     <% %w{foreign_lang native_lang can_foreign can_native}.each do |field| %>
       <th><%= field.titleize %></th>
     <% end %>
+    <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
@@ -28,8 +29,10 @@
         <% end %>
       </td>
       <% end %>
-      <td><%= link_to "Edit", edit_resource_url(r) %></td>
-      <td><%= link_to "Destroy", resource_url(r), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td>
+        <%= link_to "Edit", edit_resource_url(r) %> | 
+        <%= link_to "Destroy", resource_url(r), :confirm => 'Are you sure?', :method => :delete %>
+      </td>
     </tr>
   <% end %>
   </tbody>
